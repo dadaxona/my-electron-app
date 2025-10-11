@@ -1,0 +1,54 @@
+<div class="container">
+<div class="">
+    <input type="text" name="" id="search" class="w-10 p-1 border-dark rounded mb-2" placeholder="Izlash">
+    <button class="btn btn-success px-4 pb-1 exportUser"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-file-earmark-excel mx-1" viewBox="0 0 16 16">
+            <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+            </svg>Export</button>
+</div>
+<div class="row g-2 mb-3">
+    <input type="hidden" name="" id="idM">
+    <div class="col">
+    <input type="text" id="ism" class="form-control" placeholder="Ism">
+    </div>
+    <div class="col">
+    <input type="text" id="fam" class="form-control" placeholder="Familiya">
+    </div>
+    <div class="col">
+    <input type="text" id="shar" class="form-control" placeholder="Sharif">
+    </div>
+    <div class="col">
+    <select name="smen" id="smen" class="form-control sm"></select>
+    </div>
+    <div class="col">
+    <input type="file" id="rasm" class="form-control" placeholder="Rasm">
+    </div>
+    <div class="col-auto">
+    <button class="btn btn-primary" id="addUser">Yaratish</button>
+    </div>
+</div>
+
+<h4>Mijozlar Jadvali</h4>
+<table class="table table-bordered table-striped" id="userTable">
+    <thead>
+    <tr>
+        <th>Rasm</th>
+        <th>Ism</th>
+        <th>Familiya</th>
+        <th>Sharif</th>
+        <th>Smen</th>
+        <th>Amallar</th>
+    </tr>
+    </thead>
+    <tbody id="tbodyM"></tbody>
+</table>
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item Previous"><a class="page-link">Orqaga</a></li>
+    <li class="page-item">
+      <a class="page-link pag">1</a>
+    </li>
+    <li class="page-item Next"><a class="page-link">Keyingi</a></li>
+  </ul>
+</nav>
+</div>

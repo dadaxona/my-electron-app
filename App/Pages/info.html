@@ -1,0 +1,204 @@
+  <style>
+    :root{
+      --brand:#0d6efd;
+      --muted:#6c757d;
+    }
+    body{
+      background: linear-gradient(180deg, #f8fafc 0%, #ffffff 40%);
+      color: #212529;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    .hero {
+      background: linear-gradient(90deg, rgba(13,110,253,0.06), rgba(13,110,253,0.02));
+      border-radius: 12px;
+      padding: 36px;
+    }
+    .contact-card {
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(20,30,50,0.06);
+    }
+    .social-btn {
+      width:44px;height:44px;border-radius:10px;
+      display:inline-flex;align-items:center;justify-content:center;
+      background:#fff;border:1px solid #e9eef5;
+      box-shadow: 0 4px 12px rgba(16,24,40,0.04);
+    }
+    footer {
+      padding: 36px 0;
+      color: var(--muted);
+    }
+    .logo-mark {
+      width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--brand),#6610f2);
+      display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;
+      box-shadow: 0 6px 18px rgba(13,110,253,0.15);
+    }
+    @media (max-width:576px){
+      .hero { padding: 20px; }
+    }
+  </style>
+
+  <div class="container py-5">
+    <!-- Header -->
+    <header class="d-flex align-items-center justify-content-between mb-4">
+      <div class="d-flex align-items-center gap-3">
+        <div class="logo-mark">ID</div>
+        <div>
+          <h4 class="mb-0">ID Group</h4>
+          <small class="text-muted">Slogan yoki qisqa tavsif</small>
+        </div>
+      </div>
+      <nav>
+        <a href="#Asosiy" class="text-decoration-none text-muted me-3">Asosiy</a>
+        <a href="#Kontakt" class="text-decoration-none text-muted me-3">Kontakt</a>
+        <a href="#Manzil" class="text-decoration-none text-muted me-3">Manzil</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero mb-5" id="Asosiy">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <h1 class="display-6 fw-bold">Biz haqimizda</h1>
+          <p class="lead text-muted mb-4">
+            <!-- EDIT HERE: kompaniya haqida qisqacha ma'lumot -->
+            Biz — zamonaviy yechimlar yaratadigan, mijozlarga halol va tezkor xizmat ko‘rsatadigan IT va xavfsizlik bo‘yicha mutaxassislar jamoamiz. 2018-yildan beri katta, kichik va o‘rta bizneslarga, idoralarga yechimlar taqdim etamiz.
+          </p>
+          <div class="d-flex gap-3 flex-wrap">
+            <div class="p-3 bg-white contact-card">
+              <h6 class="mb-1">Vizyon</h6>
+              <p class="small text-muted mb-0">Innovatsion va ishonchli tizimlar yaratish.</p>
+            </div>
+            <div class="p-3 bg-white contact-card">
+              <h6 class="mb-1">Missiya</h6>
+              <p class="small text-muted mb-0">Mijozlar biznesini raqamli xavfsizlik orqali himoya qilish.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5 text-lg-end mt-4 mt-lg-0">
+          <img src="./d.jpg"
+            alt="office" class="img-fluid rounded-3 shadow-sm">
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact + Form -->
+    <div class="row g-4" id="Kontakt">
+      <div class="col-lg-5">
+        <div class="p-4 bg-white contact-card h-100">
+          <h5 class="mb-3">Aloqa ma'lumotlari</h5>
+
+          <p class="mb-2"><strong>Manzil</strong></p>
+          <p class="text-muted small mb-3">HJ4M+4WF, Urganch, Xorazm Viloyati, Узбекистан</p>
+
+          <p class="mb-2"><strong>Telefon</strong></p>
+          <p class="text-muted small mb-3">+998 97 221 58 58</p>
+          <p class="text-muted small mb-3">+998 77 360 62 20</p>
+
+          <p class="mb-2"><strong>Email</strong></p>
+          <p class="text-muted small mb-3">idgroup@gmail.com</p>
+
+          <p class="mb-2"><strong>Ish vaqti</strong></p>
+          <p class="text-muted small mb-3">Dushanba — Shanba: 09:00 — 18:00</p>
+
+          <div class="mt-3">
+            <h6 class="mb-2">Ijtimoiy tarmoqlar</h6>
+            <div class="d-flex gap-2">
+              <a class="social-btn" href="#" title="Facebook" aria-label="Facebook">
+                <!-- FB SVG -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M22 12.07C22 6.48 17.52 2 11.93 2 6.33 2 2 6.48 2 12.07c0 5.02 3.66 9.18 8.44 9.95v-7.05H8.9v-2.9h1.54V9.41c0-1.52.9-2.37 2.28-2.37.66 0 1.34.12 1.34.12v1.48h-.76c-.75 0-.98.47-.98.95v1.15h1.66l-.27 2.9h-1.39v7.05C18.34 21.25 22 17.09 22 12.07z" fill="#1877F2"/>
+                </svg>
+              </a>
+
+              <a class="social-btn" href="#" title="LinkedIn" aria-label="LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.6 4.11 5.5 3 5.5S1 4.6 1 3.5 1.88 1.5 3 1.5 4.98 2.4 4.98 3.5zM.5 8.98h4.98V23H.5V8.98zM8.5 8.98h4.78v1.94h.07c.67-1.27 2.3-2.61 4.73-2.61 5.06 0 6 3.34 6 7.68V23H18.9v-7.22c0-1.72 0-3.93-2.4-3.93-2.4 0-2.77 1.88-2.77 3.81V23H8.5V8.98z" fill="#0A66C2"/></svg>
+              </a>
+
+              <a class="social-btn" href="#" title="Instagram" aria-label="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.8a4.2 4.2 0 1 0 .001 8.401A4.2 4.2 0 0 0 12 7.8zm6.5-.8a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z" fill="#E1306C"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map + Team -->
+    <div class="row mt-5 g-4" id="Manzil">
+      <div class="col-lg-8">
+        <div class="p-4 bg-white contact-card">
+          <h6 class="mb-3">Manzil (Xarita)</h6>
+          <div style="width:100%;height:320px;border-radius:10px;overflow:hidden;background:#eef2ff;display:flex;align-items:center;justify-content:center;color:var(--muted)">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2985.643804135744!2d60.634797!3d41.555309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41dfcf1730fda8d5%3A0x309ffe7ff70def12!2sIDGroupUZ!5e0!3m2!1sru!2s!4v1759314341419!5m2!1sru!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="p-4 bg-white contact-card">
+          <h6 class="mb-3">Jamoamiz</h6>
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <img src="https://avatars.dicebear.com/api/initials/AK.svg" alt="member" width="56" height="56" class="rounded-circle">
+            <div>
+              <strong>Dilmurod Ibragimov</strong><br>
+              <small class="text-muted">Asoschi</small>
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <img src="https://avatars.dicebear.com/api/initials/SJ.svg" alt="member" width="56" height="56" class="rounded-circle">
+            <div>
+              <strong>Dadaxon Abdullaev</strong><br>
+              <small class="text-muted">Texnik qo'llab-quvvatlash</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-5 text-center">
+      <div class="small">
+        © <span id="year"></span> ID Group. Barcha huquqlar himoyalangan. &nbsp;•&nbsp;
+        <a href="#" class="text-decoration-none">Maxfiylik siyosati</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Bootstrap JS (optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // yilni qo'yish
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    // Form handling — mailto orqali yuborish (server yo'q bo'lsa ishlaydi)
+    const contactForm = document.getElementById('contactForm');
+    const formAlert = document.getElementById('formAlert');
+    const clearBtn = document.getElementById('clearBtn');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('c_name').value.trim();
+      const contact = document.getElementById('c_contact').value.trim();
+      const subject = document.getElementById('c_subject').value.trim();
+      const message = document.getElementById('c_message').value.trim();
+
+      if (!name || !contact || !subject || !message) return;
+
+      // mailto link — sizning rasmiy email manzilingizni o'zgartiring
+      const to = 'info@kompaniya.uz'; // EDIT HERE
+      const body = encodeURIComponent(`Ism: ${name}\nKontakt: ${contact}\n\n${message}`);
+      const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${body}`;
+
+      // ochish: default mail client orqali yuborish
+      window.location.href = mailto;
+
+      // UI feedback
+      formAlert.style.display = 'inline';
+      setTimeout(() => formAlert.style.display = 'none', 3500);
+      contactForm.reset();
+    });
+
+    clearBtn.addEventListener('click', () => contactForm.reset());
+  </script>

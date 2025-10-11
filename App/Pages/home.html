@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-size: 0.9rem;
+      background-color: #f8f9fa;
+    }
+    .sidebar {
+      min-height: 100vh;
+      background: #343a40;
+    }
+    .sidebar .nav-link {
+      color: #adb5bd;
+    }
+    .sidebar .nav-link.active {
+      color: #fff;
+      background-color: #495057;
+    }
+    .content {
+      padding: 20px;
+    }
+
+    #keyModal .form-control {
+      border: 2px solid #0d6efd33;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    #keyModal .form-control:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 10px rgba(13, 110, 253, 0.3);
+    }
+
+    /* Saqlash tugmasi */
+    #keyModal .btn-success {
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    #keyModal .btn-success:hover {
+      background-color: #198754;
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(25, 135, 84, 0.4);
+    }
+    .c-p {
+      cursor: pointer;
+      color: #0d6efd;
+    }
+
+    #loginModal {
+      background: url("f.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .glass-bg {
+      width: 90%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #0d6efd;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block sidebar">
+        <div class="position-sticky pt-3">
+          <h4 class="text-white px-3">Admin</h4>
+          <ul class="nav flex-column mt-3">
+            <li class="nav-item">
+              <a class="nav-link" onclick="loadPage('./dash.html')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house mx-2" viewBox="0 0 16 16">
+                  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                </svg>
+                Bosh Sahifa</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="loadPage('./user.html')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people mx-2" viewBox="0 0 16 16">
+                  <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                </svg>
+                Xodimlar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="loadPage('./device.html')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cpu mx-2" viewBox="0 0 16 16">
+                  <path d="M5 0a.5.5 0 0 1 .5.5V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2h1V.5a.5.5 0 0 1 1 0V2A2.5 2.5 0 0 1 14 4.5h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14v1h1.5a.5.5 0 0 1 0 1H14a2.5 2.5 0 0 1-2.5 2.5v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14h-1v1.5a.5.5 0 0 1-1 0V14A2.5 2.5 0 0 1 2 11.5H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2v-1H.5a.5.5 0 0 1 0-1H2A2.5 2.5 0 0 1 4.5 2V.5A.5.5 0 0 1 5 0m-.5 3A1.5 1.5 0 0 0 3 4.5v7A1.5 1.5 0 0 0 4.5 13h7a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 11.5 3zM5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5zM6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z"/>
+                </svg>
+                Qurilma</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="loadPage('./smen.html')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-right mx-2" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
+              </svg>
+                Smen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="loadPage('./profil.html')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person mx-2" viewBox="0 0 16 16">
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                </svg>
+                Profil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" onclick="loadPage('./info.html')">
+                Biz haqimizda</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+            <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Admin panel</span>
+            <span class="prose"></span>
+            <div class="d-flex">
+                <button class="btn btn-outline-danger btn-sm" onclick="logaut()">Chiqish</button>
+            </div>
+            </div>
+        </nav>
+        <div class="spa"></div>
+      </main>
+    </div>
+  </div>
+<!-- Modal -->
+<div class="modal fade" id="derfgtyhujiklohads" tabindex="-1" aria-hidden="true" 
+     data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header border-0">
+        <h5 class="modal-title w-100 text-center fw-bold text-primary">
+          🔑 Litsenziya kalitini kiriting
+        </h5>
+      </div>
+
+      <div class="modal-body d-flex flex-column justify-content-center align-items-center p-4">
+        <!-- Error text -->
+        <p class="text-danger text-center mb-3 errorkey" style="min-height:20px;"></p>
+
+        <!-- Input -->
+        <input 
+          type="text" 
+          class="form-control form-control-lg w-75 mb-4 text-center savename" 
+          placeholder="Masalan: XJDK-39DK-2DKD-92KD" 
+        >
+
+        <!-- Button -->
+        <button type="button" class="btn btn-success btn-lg px-5 svedata">
+          ✅ Saqlash
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade logMod" id="loginModal" tabindex="-1" aria-hidden="true" 
+      data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4 glass-bg">
+      <div class="modal-header border-0">
+        <h5 class="modal-title w-100 text-center fw-bold text-primary">
+          🔐 Kirish
+        </h5>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="username" class="form-label">Login</label>
+          <input id="username" name="username" type="text" class="form-control" placeholder="Login" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Parol</label>
+          <input id="password" name="password" type="password" class="form-control" placeholder="********" required>
+        </div>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary rounded-pill clickbutton">Kirish</button>
+        </div>
+        <p class="mt-4 mx-2 c-p openContact">
+          <img src="./contact.jpg" style="width: 20px; height: 20px;"> Biz haqimizda!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered cont">
+  </div>
+</div>
+
+  <script src="./script/exceljs.min.js"></script>
+  <script src="./script/axios.min.js"></script>
+  <script src="./script/bootstrap.bundle.min.js"></script>
+  <script src="./script/popper.min.js"></script>
+  <script src="./script/bootstrap.min.js"></script>
+  <script src="./script/jquery-3.7.1.min.js"></script>
+  <script src="./script/home.js"></script>
+</body>
+</html>
