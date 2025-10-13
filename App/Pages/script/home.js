@@ -111,12 +111,12 @@ $(document).on('click', '.openContact', async function () {
                 <p class="text-muted small mb-3">Dushanba — Shanba: 09:00 — 18:00</p>
 
                 <div class="mt-4">
-                <h6 class="mb-2 fw-semibold">🌐 Ijtimoiy tarmoqlar</h6>
+                <h6 class="mb-2 fw-semibold">Telegram</h6>
                 <div class="d-flex gap-3">
                     <a class="social-btn" href="https://t.me/Ibadullayevich_Dilmurod" title="Telegram" aria-label="Telegram" target="_blank">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                        <path d="M9.999 15.17 9.93 19c.5 0 .72-.22.98-.48l2.34-2.25 4.85 3.52c.89.49 1.52.23 1.74-.82l3.15-14.79h.01c.28-1.35-.49-1.88-1.34-1.55L2.85 9.16c-1.31.52-1.29 1.27-.22 1.61l4.91 1.53 11.41-7.18c.54-.36 1.04-.16.63.22" fill="#0088cc"/>
-                    </svg>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <path d="M9.999 15.17 9.93 19c.5 0 .72-.22.98-.48l2.34-2.25 4.85 3.52c.89.49 1.52.23 1.74-.82l3.15-14.79h.01c.28-1.35-.49-1.88-1.34-1.55L2.85 9.16c-1.31.52-1.29 1.27-.22 1.61l4.91 1.53 11.41-7.18c.54-.36 1.04-.16.63.22" fill="#0088cc"/>
+                        </svg>
                     </a>
                 </div>
                 </div>
@@ -127,7 +127,6 @@ $(document).on('click', '.openContact', async function () {
 
         `
     )
-    
 })
 
 $(document).on('click', '.svedata', async function () {
