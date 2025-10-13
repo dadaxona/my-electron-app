@@ -53,6 +53,14 @@ async function getDeviceRespon() {
     }
 }
 
+function secondsToTime (totalSeconds) {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const hh = String(hours).padStart(2, "0");
+    const mm = String(minutes).padStart(2, "0");
+    return `${hh}:${mm}`;
+}
+
 async function getuserTime() {
     const countres = 136;
     const data = await window.api.setTimeApi({ time: 15 });
@@ -63,6 +71,14 @@ async function getuserTime() {
             $('#derfgtyhujiklohads').modal('hide')
         } else {
             $('#derfgtyhujiklohads').modal('show')
+        }
+    } else {
+        if (data && data.statusCode === 200) {
+            if (data?.items?.count > data?.items?.count2) {
+                const all = data?.items?.count - data?.items?.count2;
+                const result = secondsToTime(all || 0)
+                $('.tim').text("Demo tugash vaqti: " + result)
+            }
         }
     }
 }

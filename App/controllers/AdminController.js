@@ -35,7 +35,10 @@ class AdminController {
         if (Number(result.count) > Number(result.count2)) {
           result.count2 = Number(result.count2) + Number(data.time);
           await result.save()
-          return { statusCode: 200 }
+          return { statusCode: 200, items: {
+            count: result.count,
+            count2: result.count2,
+          } }
         } else {
           return { statusCode: 300, key: model.key }
         }
