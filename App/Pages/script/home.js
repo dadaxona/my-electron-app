@@ -204,13 +204,14 @@ $(document).on('click', '.clickbutton',  async function () {
     const password = $('#password').val();
     const res = await window.api.login(username, password);
     if (res && res.statusCode === 200) {
+        $('.errlog').text('')
         sessionStorage.setItem('token', res.token)
         $('#loginModal').modal('hide')
         loadPage(lin || './dash.html');
         $('#username').val('');
         $('#password').val('');
     } else {
-        console.log(res);
+        $('.errlog').text('Login yoki parol xato!')
     }
 });
 async function dash() {
