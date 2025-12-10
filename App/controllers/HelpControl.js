@@ -11,6 +11,7 @@ class HelpControl {
         return {today, yyyy, mm, dd, time}
     }
     async createOrupdate (employeeNo) {
+        try {
         const { today, time } = this.dateTime();
         const result = await Mijoz.findOne({
             where: {id: Number(employeeNo)},
@@ -77,9 +78,13 @@ class HelpControl {
             }
         }
         return;
+        } catch (error) {
+            return;
+        }
     }
     async create2 (employeeNo) {
-        const result = await Mijoz.findOne({
+        try {
+            const result = await Mijoz.findOne({
             where: {id: Number(employeeNo)},
             include: [
                 {
@@ -133,10 +138,14 @@ class HelpControl {
             })
         }
         return;
+        } catch (error) {
+            return;
+        }
     }
 
     async update2 (employeeNo) {
-        const result = await Mijoz.findOne({
+        try {
+            const result = await Mijoz.findOne({
             where: {id: Number(employeeNo)},
             include: [
                 {
@@ -239,146 +248,73 @@ class HelpControl {
             }
         }
         return;
+        } catch (error) {
+            return;
+        }
     }
 
     async create (employeeNo) {
-        const result = await Mijoz.findOne({
-            where: {id: Number(employeeNo)},
-            include: [
-                {
-                    model: Admin
-                },
-                {
-                    model: Smen
-                }
-            ]
-        })        
-        const { today, time } = this.dateTime();
-        if (result && result.date !== String(today)) {
-            result.date = String(today);
-            await result.save()
-
-            const mijoz = result.toJSON()
-
-            const stafftime2 = mijoz.Smen.kirish;
-            const [staffsoat, staffminut] = stafftime2.split(":").map(Number);
-            const [realsoat, realminut] = time.split(":").map(Number);
-
-            let stafftugash = staffsoat * 3600 + staffminut * 60;
-            let realtime = realsoat * 3600 + realminut * 60;
-            const check = realtime > stafftugash ? true : false;
-
-            if (check) {
-                await Control.create({
+        try {
+            const result = await Mijoz.findOne({
+                where: {id: Number(employeeNo)},
+                include: [
+                    {
+                        model: Admin
+                    }
+                ]
+            })        
+            const { today, time } = this.dateTime();
+            // if (result && result.date !== String(today)) {
+            if (result) {
+                result.date = String(today);
+                await result.save()
+                const mijoz = result.toJSON()
+                const [realsoat, realminut] = time.split(":").map(Number);
+                let realtime = realsoat * 3600 + realminut * 60;
+                await Analiz.create({
                     adminId: mijoz.Admin.id,
                     mijozId: mijoz.id,
                     ism: mijoz.ism,
                     fam: mijoz.fam,
                     shar: mijoz.shar,
-                    smen: mijoz.Smen.smen,
-                    a1: mijoz.Smen.kirish,
-                    a2: mijoz.Smen.chiqish,
                     kirish: realtime,
                     sana: today
                 })
             }
-
-            await Analiz.create({
-                adminId: mijoz.Admin.id,
-                mijozId: mijoz.id,
-                ism: mijoz.ism,
-                fam: mijoz.fam,
-                shar: mijoz.shar,
-                smen: mijoz.Smen.smen,
-                a1: mijoz.Smen.kirish,
-                a2: mijoz.Smen.chiqish,
-                kirish: realtime,
-                sana: today
-            })
+            return;
+        } catch (error) {
+            return
         }
-        return;
     }
 
     async update (employeeNo) {
-        const result = await Mijoz.findOne({
+       try {
+         const result = await Mijoz.findOne({
             where: {id: Number(employeeNo)},
             include: [
                 {
                     model: Admin
-                },
-                {
-                    model: Smen
                 }
             ]
         })
         if (result) {
             const mijoz = result.toJSON()
             const { today, time } = this.dateTime();
-
-            const smen = mijoz.Smen.smen;
-            const stafftime2 = mijoz.Smen.chiqish;
-            const [staffsoat, staffminut] = stafftime2.split(":").map(Number);
             const [realsoat, realminut] = time.split(":").map(Number);
-
-            let stafftugash = staffsoat * 3600 + staffminut * 60;
             let realtime = realsoat * 3600 + realminut * 60;
-
-            if (smen === "Kun") {
-                const results2 = await Analiz.findOne({
-                    order: [['id', 'DESC']],
-                    where: { mijozId: Number(mijoz.id), sana: String(today) }
-                });
-                if (results2) {
-                    const check = realtime < stafftugash ? true : false;
-                    if (check) {
-                        await Control.create({
-                            adminId: mijoz.Admin.id,
-                            mijozId: mijoz.id,
-                            ism: mijoz.ism,
-                            fam: mijoz.fam,
-                            shar: mijoz.shar,
-                            smen: mijoz.Smen.smen,
-                            a1: mijoz.Smen.kirish,
-                            a2: mijoz.Smen.chiqish,
-                            chiqish: realtime,
-                            sana: today
-                        })
-                    }
-                    results2.chiqish = realtime;
-                    await results2.save();
-                }
-            }
-            if (smen === "Tun" || smen === "To'liq") {
-                const tu = new Date();
-                const yesterday = new Date(tu);
-                yesterday.setDate(tu.getDate() - 1);
-                const date = yesterday.toISOString().split('T')[0];
-                const results3 = await Analiz.findOne({
-                    order: [['id', 'DESC']],
-                    where: { mijozId: Number(mijoz.id), sana: String(date) }
-                });
-                if (results3) {
-                    const check = realtime < stafftugash ? true : false;
-                    if (check) {
-                        await Control.create({
-                            adminId: mijoz.Admin.id,
-                            mijozId: mijoz.id,
-                            ism: mijoz.ism,
-                            fam: mijoz.fam,
-                            shar: mijoz.shar,
-                            smen: mijoz.Smen.smen,
-                            a1: mijoz.Smen.kirish,
-                            a2: mijoz.Smen.chiqish,
-                            chiqish: realtime,
-                            sana: today
-                        })
-                    }
-                    results3.chiqish = realtime;
-                    await results3.save();
-                }
+            const results3 = await Analiz.findOne({
+                order: [['id', 'DESC']],
+                where: { mijozId: Number(mijoz.id) }
+            });
+            if (results3) {
+                results3.chiqish = realtime;
+                await results3.save();
             }
         }
         return;
+       } catch (error) {
+        return;
+       }
     }
 
     option (query, token) {
@@ -386,9 +322,9 @@ class HelpControl {
         if (token) {
             where.adminId = Number(token.id)
         }
-        if (query.smenh) {
-            where.smen = query.smenh;
-        }
+        // if (query.smenh) {
+        //     where.smen = query.smenh;
+        // }
         if (query.search2) {
             where[Op.or] = [
                 { ism: { [Op.like]: `%${query.search2}%` } },

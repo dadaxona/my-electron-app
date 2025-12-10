@@ -22,7 +22,7 @@ async function get_Face_Id() {
         await getInterval_Fn()
     }
 }
-
+// clr
 async function getInterval_Fn(){
     const online = '<span class="text-success">Online</span>';
     const offline = '<span class="text-danger">Offline</span>';
@@ -128,7 +128,7 @@ $(document).on('click', '.openContact', async function () {
         `
     )
 })
-
+// tbodyM
 $(document).on('click', '.svedata', async function () {
     const key = $('.savename').val()
     const respon = await axios.post(apiKeyKluch, {key})
@@ -245,29 +245,55 @@ async function dash() {
 
     $(document).on('click', '.exportDash', async function () {
         const token = sessionStorage.getItem("token");
-        const result = await window.api.exportExcelDash({ token, smenh, search2, date, date2 });        
+        const result = await window.api.exportExcelDash({ token, search2, date, date2 });        
         if (result && result.statusCode === 200) {
             const workbook = new ExcelJS.Workbook();
             const worksheet = workbook.addWorksheet("Users");
+             const mijozlar = result.items.reduce((acc, item) => {
+                if (!acc.find(b => b.mijozId === item.mijozId)) {
+                    acc.push({ mijozId: item.mijozId, soat: 0 });
+                }
+                return acc;
+            }, []);
+            if (mijozlar && mijozlar.length > 0) {
+                for (let i = 0; i < mijozlar.length; i++) {
+                    const element = mijozlar[i];
+                    const rows = result.items.filter(e => e.mijozId === element.mijozId);
+                    if (rows && rows.length > 0) {
+                        let soats = 0;
+                        for (let p = 0; p < rows.length; p++) {
+                            if (rows[p].kirish && rows[p].chiqish) {
+                                const jami = Number(rows[p].chiqish) - Number(rows[p].kirish);
+                                soats += jami;
+                            } else {
+                                soats += 0;
+                            }
+                        }
+                        element.soat = formate(soats);
+                    }
+                }
+            }
             worksheet.columns = [
                 { header: "ID", key: "id", width: 10 },
                 { header: "Ism", key: "ism", width: 20 },
                 { header: "Familiya", key: "fam", width: 20 },
                 { header: "Sharif", key: "shar", width: 20 },
-                { header: "Smen", key: "smen", width: 20 },
                 { header: "Sana", key: "sana", width: 20 },
                 { header: "Kirish", key: "kirish", width: 20 },
                 { header: "Chiqish", key: "chiqish", width: 20 },
+                { header: "Kunlik", key: "kundalik", width: 20 },
+                { header: "Jami", key: "jami", width: 20 },
             ];
             result.items.forEach(row => worksheet.addRow({
                 id: row.id,
                 ism: row.ism,
                 fam: row.fam,
                 shar: row.shar,
-                smen: row.smen,
                 sana: row.sana,
                 kirish: formate(row.kirish || 0),
-                chiqish: formate(row.chiqish || 0)
+                chiqish: formate(row.chiqish || 0),
+                kundalik: row.kirish && row.chiqish ? formate(Number(row.chiqish) - Number(row.kirish)) : 0,
+                jami: mijozlar.find(e => e.mijozId === row.mijozId) ? mijozlar.find(e => e.mijozId === row.mijozId).soat : 0
             }));
             const buffer = await workbook.xlsx.writeBuffer();
             const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
@@ -291,7 +317,6 @@ async function dash() {
                 { header: "Ism", key: "ism", width: 20 },
                 { header: "Familiya", key: "fam", width: 20 },
                 { header: "Sharif", key: "shar", width: 20 },
-                { header: "Smen", key: "smen", width: 20 },
                 { header: "Sana", key: "sana", width: 20 },
                 { header: "Kirish", key: "kirish", width: 20 },
                 { header: "Chiqish", key: "chiqish", width: 20 },
@@ -301,7 +326,6 @@ async function dash() {
                 ism: row.ism,
                 fam: row.fam,
                 shar: row.shar,
-                smen: row.smen,
                 sana: row.sana,
                 kirish: formate(row.kirish || 0),
                 chiqish: formate(row.chiqish || 0)
@@ -343,7 +367,6 @@ async function dash() {
                 { header: "Ism", key: "ism", width: 20 },
                 { header: "Familiya", key: "fam", width: 20 },
                 { header: "Sharif", key: "shar", width: 20 },
-                { header: "Smen", key: "smen", width: 20 },
                 { header: "Kirish", key: "kirish", width: 20 },
                 { header: "Chiqish", key: "chiqish", width: 20 },
             ];
@@ -352,7 +375,6 @@ async function dash() {
                 ism: row.ism,
                 fam: row.fam,
                 shar: row.shar,
-                smen: row.Smen.smen,
                 kirish: formate(row.kirish || 0),
                 chiqish: formate(row.chiqish || 0)
             }));
@@ -370,6 +392,12 @@ async function dash() {
     function html_fn4(params) {        
         let item = ''
         params.forEach(e => {
+            let jami = 0;
+            if (e?.kirish && e?.chiqish) {
+                jami = Number(e?.chiqish) - Number(e?.kirish);
+            } else {
+                jami = 0;
+            }
             item += `
                 <tr>
                     <td>
@@ -380,10 +408,10 @@ async function dash() {
                     <td>${e?.ism || ''}</td>
                     <td>${e?.fam || ''}</td>
                     <td>${e?.shar || ''}</td>
-                    <td>${e?.Smen?.smen || ''}</td>
                     <td>${e?.date || ''}</td>
                     <td>${formate(e?.kirish || 0) || ''}</td>
                     <td>${formate(e?.chiqish || 0) || ''}</td>
+                    <td>${formate(jami || 0) || ''}</td>
                 </tr>
             `
         });
@@ -436,6 +464,12 @@ async function dash() {
         $('.pagof').html(pageof)
         let item = ''
         params.forEach(e => {
+            let jami = 0;
+            if (e?.kirish && e?.chiqish) {
+                jami = Number(e?.chiqish) - Number(e?.kirish);
+            } else {
+                jami = 0;
+            }
             item += `
                 <tr>
                     <td>
@@ -446,10 +480,10 @@ async function dash() {
                     <td>${e?.ism || ''}</td>
                     <td>${e?.fam || ''}</td>
                     <td>${e?.shar || ''}</td>
-                    <td>${e?.smen || ''}</td>
                     <td>${e?.sana || ''}</td>
                     <td>${formate(e?.kirish) || ''}</td>
                     <td>${formate(e?.chiqish || 0) || ''}</td>
+                    <td>${formate(jami || 0) || ''}</td>
                     <td>
                      <span class="delof text-danger" data-id="${e?.id}" style="cursor: pointer;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -480,22 +514,22 @@ async function dash() {
     
     $(document).on('change', '#date', async function () {
         date = $(this).val()
-        await getAnaliz2(page2, limit2, search2, smenh, date, date2)
+        await getAnaliz2(page2, limit2, search2, date, date2)
     })
 
     $(document).on('change', '#date2', async function () {
         date2 = $(this).val()
-        await getAnaliz2(page2, limit2, search2, smenh, date, date2)
+        await getAnaliz2(page2, limit2, search2, date, date2)
     })
 
     $(document).on('change', '#smenh', async function () {
         smenh = $(this).val()
-        await getAnaliz2(page2, limit2, search2, smenh, date, date2)
+        await getAnaliz2(page2, limit2, search2, date, date2)
     })
 
     $(document).on('keyup', '#search2', async function () {
         search2 = $(this).val()
-        await getAnaliz2(page2, limit2, search2, smenh, date, date2)
+        await getAnaliz2(page2, limit2, search2, date, date2)
     })
     
     $(document).on('click', '.Previous2', async function () {
@@ -503,18 +537,18 @@ async function dash() {
         if (page2 <= 0) {
             page2 = 1
         } else {
-            await getAnaliz2(page2, limit2, search2, smenh, date, date2)
+            await getAnaliz2(page2, limit2, search2, date, date2)
         }
     })
     $(document).on('click', '.Next2', async function () {
         page2++
-        await getAnaliz2(page2, limit2, search2, smenh, date, date2)
+        await getAnaliz2(page2, limit2, search2, date, date2)
     })
 
-    async function getAnaliz2(page2, limit2, search2, smenh, date, date2) {
+    async function getAnaliz2(page2, limit2, search2, date, date2) {
         $('.pag2').html(page2)
         const token = sessionStorage.getItem("token");
-        const res = await window.api.getAnalizApi({ token, page2, limit2, search2, smenh, date, date2 });
+        const res = await window.api.getAnalizApi({ token, page2, limit2, search2, date, date2 });
         if (res && res.statusCode === 200) {
             await getAllData()
             html_fn2(res.items)
@@ -525,7 +559,7 @@ async function dash() {
 
     async function getAllData() {
         const token = sessionStorage.getItem("token");
-        const result = await window.api.getAllApi({'token': token, smenh, date, date2 })
+        const result = await window.api.getAllApi({'token': token, date, date2 })
         if (result && result.statusCode === 200) {
             $('.jami').html(result.items.mijoz)
             $('.kelgan').html(result.items.analiz)
@@ -548,6 +582,12 @@ async function dash() {
     function html_fn2(params) {
         let item = ''
         params.forEach(e => {
+            let jami = 0;
+            if (e?.kirish && e?.chiqish) {
+                jami = Number(e?.chiqish) - Number(e?.kirish);
+            } else {
+                jami = 0;
+            }
             item += `
                 <tr>
                     <td>
@@ -558,10 +598,10 @@ async function dash() {
                     <td>${e?.ism || ''}</td>
                     <td>${e?.fam || ''}</td>
                     <td>${e?.shar || ''}</td>
-                    <td>${e?.smen || ''}</td>
                     <td>${e?.sana || ''}</td>
                     <td>${formate(e?.kirish || 0) || ''}</td>
                     <td>${formate(e?.chiqish || 0) || ''}</td>
+                    <td>${formate(jami || 0) || ''}</td>
                 </tr>
             `
         });
@@ -607,7 +647,6 @@ async function profiles() {
         }
     });
 
-    // Profil o‘chirish
     deleteBtn.addEventListener("click", async () => {
         if (confirm("Are you sure you want to delete your account?")) {
             const token = sessionStorage.getItem("token");
@@ -839,7 +878,6 @@ async function users() {
                 { header: "Ism", key: "ism", width: 20 },
                 { header: "Familiya", key: "fam", width: 20 },
                 { header: "Sharif", key: "shar", width: 20 },
-                { header: "Smen", key: "smen", width: 20 },
             ];
             result.items.forEach(row => worksheet.addRow({
                 ...row,
@@ -892,7 +930,6 @@ async function users() {
                     <td>${e.ism}</td>
                     <td>${e.fam}</td>
                     <td>${e.shar}</td>
-                    <td>${e.Smen.smen}</td>
                     <td>
                         <button class="btn btn-sm btn-warning me-1" 
                         id="editUser"
@@ -900,7 +937,6 @@ async function users() {
                         data-ism="${e.ism}"
                         data-fam="${e.fam}"
                         data-shar="${e.shar}"
-                        data-smen="${e.Smen.id}"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                                 <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
@@ -939,18 +975,17 @@ async function users() {
         const ism = document.getElementById("ism").value;
         const fam = document.getElementById("fam").value;
         const shar = document.getElementById("shar").value;
-        const smen = document.getElementById("smen").value;
         const fileInput = document.getElementById("rasm");
         const token = sessionStorage.getItem("token");
 
-        if (!ism || !fam || !shar || !smen) {
+        if (!ism || !fam || !shar) {
             alert("Barcha maydonlarni to'ldiring!");
             return;
         }
         if (fileInput.files.length > 0) {
             const deviceAuth = sessionStorage.getItem('DeviceAuth')
             if (deviceAuth === "true") {
-                const payload = { token, id: idM, ism, fam, shar, smen };
+                const payload = { token, id: idM, ism, fam, shar };
                 const res = idM
                 ? await window.api.updateUser(payload)
                 : await window.api.createUser(payload);
@@ -980,7 +1015,7 @@ async function users() {
         } else {
             const deviceAuth = sessionStorage.getItem('DeviceAuth')
             if (deviceAuth === "true") {
-                const payload = { token, id: idM, ism, fam, shar, smen };
+                const payload = { token, id: idM, ism, fam, shar };
                 const res = idM
                 ? await window.api.updateUser(payload)
                 : await window.api.createUser(payload);
@@ -999,7 +1034,6 @@ async function users() {
         document.getElementById("ism").value = "";
         document.getElementById("fam").value = "";
         document.getElementById("shar").value = "";
-        document.getElementById("smen").value = "";
         document.getElementById("rasm").value = "";
     }
 
@@ -1008,7 +1042,6 @@ async function users() {
         $('#ism').val($(this).data('ism') || '')
         $('#fam').val($(this).data('fam') || '')
         $('#shar').val($(this).data('shar') || '')
-        $('#smen').val($(this).data('smen') || '')
     })
 
     $(document).on('click', '#deleteUser', async function () {

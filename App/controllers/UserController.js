@@ -347,9 +347,6 @@ class UserController
       const token = verifyToken(data)
       if (token && token.statusCode === 200) {
         const oldUser = await Mijoz.findOne({ where: { id: Number(data.id) } });
-        if (!oldUser) {
-          return { statusCode: 404 };
-        }
         if (oldUser.rasm) {
           const oldPath = path.join(uploadDir, oldUser.rasm);
           if (fs.existsSync(oldPath)) {

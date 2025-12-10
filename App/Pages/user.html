@@ -1,54 +1,453 @@
-<div class="container">
-<div class="">
-    <input type="text" name="" id="search" class="w-10 p-1 border-dark rounded mb-2" placeholder="Izlash">
-    <button class="btn btn-success px-4 pb-1 exportUser"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-file-earmark-excel mx-1" viewBox="0 0 16 16">
-            <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-            </svg>Export</button>
-</div>
-<div class="row g-2 mb-3">
-    <input type="hidden" name="" id="idM">
-    <div class="col">
-    <input type="text" id="ism" class="form-control" placeholder="Ism">
-    </div>
-    <div class="col">
-    <input type="text" id="fam" class="form-control" placeholder="Familiya">
-    </div>
-    <div class="col">
-    <input type="text" id="shar" class="form-control" placeholder="Sharif">
-    </div>
-    <div class="col">
-    <select name="smen" id="smen" class="form-control sm"></select>
-    </div>
-    <div class="col">
-    <input type="file" id="rasm" class="form-control" placeholder="Rasm">
-    </div>
-    <div class="col-auto">
-    <button class="btn btn-primary" id="addUser">Yaratish</button>
-    </div>
-</div>
+<style>
+  /* Modern User Management Styles */
+  .user-management-container {
+    padding: 30px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+  }
 
-<h4>Mijozlar Jadvali</h4>
-<table class="table table-bordered table-striped" id="userTable">
-    <thead>
-    <tr>
-        <th>Rasm</th>
-        <th>Ism</th>
-        <th>Familiya</th>
-        <th>Sharif</th>
-        <th>Smen</th>
-        <th>Amallar</th>
-    </tr>
-    </thead>
-    <tbody id="tbodyM"></tbody>
-</table>
-<nav aria-label="...">
-  <ul class="pagination">
-    <li class="page-item Previous"><a class="page-link">Orqaga</a></li>
-    <li class="page-item">
-      <a class="page-link pag">1</a>
-    </li>
-    <li class="page-item Next"><a class="page-link">Keyingi</a></li>
-  </ul>
-</nav>
+  .page-header {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 25px 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #495057;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .page-title svg {
+    margin-right: 15px;
+    width: 32px;
+    height: 32px;
+    color: #0d6efd;
+  }
+
+  .search-export-bar {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  .search-input {
+    flex: 1;
+    max-width: 300px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .search-input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 20px rgba(13, 110, 253, 0.2);
+    outline: none;
+    transform: translateY(-2px);
+  }
+
+  .export-btn {
+    background: linear-gradient(135deg, #198754, #20c997);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 25px;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
+  }
+
+  .export-btn:hover {
+    background: linear-gradient(135deg, #157347, #1aa179);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(25, 135, 84, 0.4);
+  }
+
+  .export-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .form-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .form-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+  }
+
+  .form-title svg {
+    margin-right: 12px;
+    width: 24px;
+    height: 24px;
+    color: #0d6efd;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+  }
+
+  .form-control {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 12px 16px;
+    background: rgba(248, 249, 250, 0.8);
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+  }
+
+  .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 15px rgba(13, 110, 253, 0.2);
+    background: white;
+    transform: translateY(-1px);
+    outline: none;
+  }
+
+  .form-control::placeholder {
+    color: #6c757d;
+    opacity: 0.7;
+  }
+
+  .submit-btn {
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    border: none;
+    border-radius: 12px;
+    padding: 15px 30px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .submit-btn:hover {
+    background: linear-gradient(135deg, #0b5ed7, #5a0fc8);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(13, 110, 253, 0.4);
+  }
+
+  .submit-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .table-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+  }
+
+  .table-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 25px 30px;
+    border-bottom: none;
+  }
+
+  .table-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .table-title svg {
+    margin-right: 12px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .table {
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .table thead th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 20px 15px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .table tbody td {
+    padding: 18px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    vertical-align: middle;
+  }
+
+  .table tbody tr {
+    transition: all 0.3s ease;
+  }
+
+  .table tbody tr:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    transform: scale(1.01);
+  }
+
+  .table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .btn-edit {
+    background: linear-gradient(135deg, #ffc107, #fd7e14);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: white;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+  }
+
+  .btn-edit:hover {
+    background: linear-gradient(135deg, #e0a800, #e67e00);
+    transform: translateY(-2px);
+  }
+
+  .btn-delete {
+    background: linear-gradient(135deg, #dc3545, #e83e8c);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: white;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+  }
+
+  .btn-delete:hover {
+    background: linear-gradient(135deg, #c82333, #d63384);
+    transform: translateY(-2px);
+  }
+
+  .pagination {
+    justify-content: center;
+    margin: 30px 0;
+  }
+
+  .pagination .page-link {
+    border: none;
+    border-radius: 12px;
+    margin: 0 3px;
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #667eea;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .pagination .page-link:hover {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  }
+
+  .user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(102, 126, 234, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .table tbody tr:hover .user-avatar {
+    border-color: rgba(102, 126, 234, 0.5);
+    transform: scale(1.1);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .user-management-container {
+      padding: 15px;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    
+    .search-export-bar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .search-input {
+      max-width: none;
+    }
+  }
+
+  /* Animation */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .page-header,
+  .form-container,
+  .table-container {
+    animation: slideInUp 0.6s ease-out;
+  }
+
+  .form-container {
+    animation-delay: 0.1s;
+  }
+
+  .table-container {
+    animation-delay: 0.2s;
+  }
+</style>
+
+<div class="user-management-container">
+  <div class="page-header">
+    <h1 class="page-title">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+      </svg>
+      Xodimlar Boshqaruvi
+    </h1>
+  </div>
+
+  <div class="search-export-bar">
+    <input type="text" id="search" class="search-input" placeholder="Xodimlarni qidirish...">
+    <button class="export-btn exportUser">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+      </svg>
+      Export
+    </button>
+  </div>
+
+  <div class="form-container">
+    <h3 class="form-title">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+      </svg>
+      Yangi Xodim Qo'shish
+    </h3>
+    <input type="hidden" id="idM">
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Ism</label>
+        <input type="text" id="ism" class="form-control" placeholder="Xodimning ismini kiriting">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Familiya</label>
+        <input type="text" id="fam" class="form-control" placeholder="Xodimning familiyasini kiriting">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Sharif</label>
+        <input type="text" id="shar" class="form-control" placeholder="Xodimning sharifini kiriting">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Rasm</label>
+        <input type="file" id="rasm" class="form-control" accept="image/*">
+      </div>
+    </div>
+    <button class="submit-btn" id="addUser">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.5-8.5a.5.5 0 0 1-1 0V6a.5.5 0 0 1 1 0v1.5zm0 3a.5.5 0 0 1-1 0V9a.5.5 0 0 1 1 0v1.5z"/>
+      </svg>
+      Yaratish
+    </button>
+  </div>
+
+  <div class="table-container">
+    <div class="table-header">
+      <h5 class="table-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5 3v-3h4v3H6zm5 0v-3h4v3h-4z"/>
+        </svg>
+        Xodimlar Ro'yxati
+      </h5>
+    </div>
+    <div style="padding: 30px; overflow-x: auto;">
+      <table class="table" id="userTable">
+        <thead>
+          <tr>
+            <th>Rasm</th>
+            <th>Ism</th>
+            <th>Familiya</th>
+            <th>Sharif</th>
+            <th>Amallar</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyM"></tbody>
+      </table>
+      <nav aria-label="Pagination">
+        <ul class="pagination">
+          <li class="page-item Previous"><a class="page-link">Orqaga</a></li>
+          <li class="page-item">
+            <a class="page-link pag">1</a>
+          </li>
+          <li class="page-item Next"><a class="page-link">Keyingi</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
 </div>

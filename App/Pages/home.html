@@ -6,68 +6,462 @@
   <title>ID Face</title>
   <link href="./css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body {
-      font-size: 0.9rem;
-      background-color: #f8f9fa;
+    /* Modern Professional Styles */
+    :root {
+      --primary-color: #0d6efd;
+      --secondary-color: #6c757d;
+      --success-color: #198754;
+      --danger-color: #dc3545;
+      --warning-color: #ffc107;
+      --info-color: #0dcaf0;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --sidebar-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --border-radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Enhanced Sidebar */
     .sidebar {
       min-height: 100vh;
-      background: #343a40;
+      background: var(--sidebar-bg);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
     }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
     .sidebar .nav-link {
-      color: #adb5bd;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 12px 20px;
+      margin: 4px 12px;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      position: relative;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      backdrop-filter: blur(10px);
     }
+
+    .sidebar .nav-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateX(5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
     .sidebar .nav-link.active {
       color: #fff;
-      background-color: #495057;
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      transform: translateX(8px);
     }
+
+    .sidebar .nav-link svg {
+      margin-right: 12px;
+      width: 18px;
+      height: 18px;
+      transition: var(--transition);
+    }
+
+    .sidebar .nav-link:hover svg {
+      transform: scale(1.1);
+    }
+
+    /* Enhanced Content Area */
     .content {
-      padding: 20px;
+      padding: 30px;
+      background: transparent;
+    }
+
+    /* Modern Navbar */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 0 0 20px 20px;
+      margin-bottom: 30px;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--primary-color), #6610f2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Enhanced Modal Styles */
+    #keyModal .modal-content {
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+      overflow: hidden;
+    }
+
+    #keyModal .modal-header {
+      background: linear-gradient(135deg, var(--primary-color), #6610f2);
+      color: white;
+      border: none;
+      padding: 25px 30px;
+    }
+
+    #keyModal .modal-title {
+      font-weight: 700;
+      font-size: 1.3rem;
     }
 
     #keyModal .form-control {
-      border: 2px solid #0d6efd33;
-      border-radius: 12px;
-      transition: all 0.3s ease;
+      border: 2px solid rgba(13, 110, 253, 0.1);
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      padding: 15px 20px;
+      font-size: 1rem;
+      background: rgba(248, 249, 250, 0.8);
+      backdrop-filter: blur(10px);
     }
 
     #keyModal .form-control:focus {
-      border-color: #0d6efd;
-      box-shadow: 0 0 10px rgba(13, 110, 253, 0.3);
+      border-color: var(--primary-color);
+      box-shadow: 0 0 20px rgba(13, 110, 253, 0.3);
+      background: white;
+      transform: translateY(-2px);
     }
 
-    /* Saqlash tugmasi */
     #keyModal .btn-success {
-      border-radius: 12px;
+      border-radius: var(--border-radius);
       font-weight: 600;
-      transition: all 0.3s ease;
+      padding: 15px 30px;
+      transition: var(--transition);
+      background: linear-gradient(135deg, var(--success-color), #20c997);
+      border: none;
+      box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
     }
 
     #keyModal .btn-success:hover {
-      background-color: #198754;
-      transform: scale(1.05);
-      box-shadow: 0 0 12px rgba(25, 135, 84, 0.4);
-    }
-    .c-p {
-      cursor: pointer;
-      color: #0d6efd;
+      background: linear-gradient(135deg, #157347, #1aa179);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(25, 135, 84, 0.4);
     }
 
+    /* Enhanced Login Modal */
     #loginModal {
-      background: url("face3.png") no-repeat center center fixed;
+      background: linear-gradient(135deg, rgba(13, 110, 253, 0.9), rgba(102, 16, 242, 0.9)), url("face3.png") no-repeat center center fixed;
       background-size: cover;
+      background-blend-mode: overlay;
     }
 
     .glass-bg {
-      width: 80%;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 20px;
+      width: 90%;
+      max-width: 450px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 25px;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #0d6efd;
+      color: white;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
     }
 
+    .glass-bg .modal-header {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      padding: 25px 30px;
+    }
+
+    .glass-bg .modal-title {
+      font-weight: 700;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+
+    .glass-bg .form-control {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      border-radius: var(--border-radius);
+      padding: 15px 20px;
+      transition: var(--transition);
+    }
+
+    .glass-bg .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .glass-bg .form-control:focus {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .glass-bg .btn-primary {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 25px;
+      padding: 15px 30px;
+      font-weight: 600;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+
+    .glass-bg .btn-primary:hover {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Enhanced Interactive Elements */
+    .c-p {
+      cursor: pointer;
+      color: var(--primary-color);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .c-p:hover {
+      color: #6610f2;
+      transform: translateY(-2px);
+    }
+
+    .c-p::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, var(--primary-color), #6610f2);
+      transition: width 0.3s ease;
+    }
+
+    .c-p:hover::after {
+      width: 100%;
+    }
+
+    /* Enhanced Button Styles */
+    .btn {
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-outline-danger {
+      border: 2px solid var(--danger-color);
+      color: var(--danger-color);
+      background: transparent;
+    }
+
+    .btn-outline-danger:hover {
+      background: var(--danger-color);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+    }
+
+    /* Enhanced Form Elements */
+    .form-control {
+      border-radius: var(--border-radius);
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      padding: 12px 16px;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 15px rgba(13, 110, 253, 0.2);
+      transform: translateY(-1px);
+    }
+
+    /* Enhanced Card Styles */
+    .card {
+      border: none;
+      border-radius: var(--border-radius);
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Enhanced Table Styles */
+    .table {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .table thead th {
+      background: linear-gradient(135deg, var(--primary-color), #6610f2);
+      color: white;
+      border: none;
+      font-weight: 600;
+      padding: 15px;
+    }
+
+    .table tbody tr {
+      transition: var(--transition);
+    }
+
+    .table tbody tr:hover {
+      background: rgba(13, 110, 253, 0.05);
+      transform: scale(1.01);
+    }
+
+    /* Enhanced Pagination */
+    .pagination .page-link {
+      border: none;
+      border-radius: var(--border-radius);
+      margin: 0 2px;
+      transition: var(--transition);
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--primary-color);
+    }
+
+    .pagination .page-link:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+    }
+
+    /* Enhanced Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .sidebar .nav-item {
+      animation: slideInLeft 0.6s ease-out;
+    }
+
+    .content > * {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .sidebar {
+        min-height: auto;
+      }
+      
+      .content {
+        padding: 15px;
+      }
+      
+      .glass-bg {
+        width: 95%;
+        margin: 10px;
+      }
+    }
+
+    /* Loading States */
+    .loading {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* Enhanced Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, var(--primary-color), #6610f2);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #6610f2, var(--primary-color));
+    }
   </style>
 </head>
 <body>
@@ -98,13 +492,13 @@
                 </svg>
                 Qurilma</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link c-p" onclick="loadPage('./smen.html')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-right mx-2" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5m14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5"/>
               </svg>
                 Smen</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link c-p" onclick="loadPage('./profil.html')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person mx-2" viewBox="0 0 16 16">
@@ -141,7 +535,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg rounded-4">
       <div class="modal-header border-0">
-        <h5 class="modal-title w-100 text-center fw-bold text-primary">
+        <h5 class="modal-title w-100 text-center fw-bold text-white">
           🔑 Litsenziya kalitini kiriting
         </h5>
       </div>
@@ -171,19 +565,19 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg rounded-4 glass-bg">
       <div class="modal-header border-0">
-        <h5 class="modal-title w-100 text-center fw-bold text-primary">
+        <h5 class="modal-title w-100 text-center fw-bold text-white">
           🔐 Kirish
         </h5>
       </div>
 
       <div class="modal-body">
         <div class="mb-3">
-          <label for="username" class="form-label text-dark">Login</label>
+          <label for="username" class="form-label text-white">Login</label>
           <input id="username" name="username" type="text" class="form-control" placeholder="Login" required>
         </div>
         
         <div class="mb-3">
-          <label for="password" class="form-label text-dark">Parol</label>
+          <label for="password" class="form-label text-white">Parol</label>
           <input id="password" name="password" type="password" class="form-control" placeholder="********" required>
         </div>
         

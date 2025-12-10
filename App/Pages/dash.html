@@ -1,152 +1,500 @@
-<div class="content">
-    <div class="row">
-    <div class="col-md-3">
-        <div class="card text-bg-primary mb-3" onclick="loadPage('./user.html')" style="cursor: pointer;">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-people mx-2" viewBox="0 0 16 16">
-                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
-                    </svg>
-                    Xodimlar</h5>
-                <p class="card-text fs-4 mx-2 jami">0</p>
-            </div>
-        </div>
-    </div>
+<style>
+  /* Modern Dashboard Styles */
+  .dashboard-container {
+    padding: 30px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+  }
 
-    <div class="col-md-3">
-        <div class="card text-bg-success mb-3 clr" style="cursor: pointer;">
-        <div class="card-body">
-            <h5 class="card-title">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list-ol mx-2" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5"/>
-                <path d="M1.713 11.865v-.474H2c.217 0 .363-.137.363-.317 0-.185-.158-.31-.361-.31-.223 0-.367.152-.373.31h-.59c.016-.467.373-.787.986-.787.588-.002.954.291.957.703a.595.595 0 0 1-.492.594v.033a.615.615 0 0 1 .569.631c.003.533-.502.8-1.051.8-.656 0-1-.37-1.008-.794h.582c.008.178.186.306.422.309.254 0 .424-.145.422-.35-.002-.195-.155-.348-.414-.348h-.3zm-.004-4.699h-.604v-.035c0-.408.295-.844.958-.844.583 0 .96.326.96.756 0 .389-.257.617-.476.848l-.537.572v.03h1.054V9H1.143v-.395l.957-.99c.138-.142.293-.304.293-.508 0-.18-.147-.32-.342-.32a.33.33 0 0 0-.342.338zM2.564 5h-.635V2.924h-.031l-.598.42v-.567l.629-.443h.635z"/>
-                </svg>
-                Kelganlar</h5>
-            <p class="card-text fs-4 mx-2 kelgan">0</p>
-        </div>
-        </div>
-    </div>
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+  }
 
-    <div class="col-md-3">
-        <div class="card text-bg-warning mb-3 kechqolgan" 
-        style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-        <div class="card-body">
-            <h5 class="card-title">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-slash mx-2" viewBox="0 0 16 16">
-                <path d="M13.879 10.414a2.501 2.501 0 0 0-3.465 3.465zm.707.707-3.465 3.465a2.501 2.501 0 0 0 3.465-3.465m-4.56-1.096a3.5 3.5 0 1 1 4.949 4.95 3.5 3.5 0 0 1-4.95-4.95ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
-                </svg>
-                Kechikish</h5>
-            <p class="card-text fs-4 mx-2 kechikish">0</p>
-        </div>
-        </div>
-    </div>
+  .stat-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--card-color, #0d6efd), var(--card-color-light, #6610f2));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .stat-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  .stat-card.primary {
+    --card-color: #0d6efd;
+    --card-color-light: #6610f2;
+  }
+
+  .stat-card.success {
+    --card-color: #198754;
+    --card-color-light: #20c997;
+  }
+
+  .stat-card.warning {
+    --card-color: #ffc107;
+    --card-color-light: #fd7e14;
+  }
+
+  .stat-card.danger {
+    --card-color: #dc3545;
+    --card-color-light: #e83e8c;
+  }
+
+  .stat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--card-color), var(--card-color-light));
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover .stat-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .stat-icon svg {
+    width: 30px;
+    height: 30px;
+    color: white;
+  }
+
+  .stat-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
+    margin: 0;
+  }
+
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--card-color);
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .stat-description {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-top: 10px;
+    opacity: 0.8;
+  }
+
+  /* Enhanced Table Container */
+  .table-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    margin-top: 30px;
+  }
+
+  .table-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 25px 30px;
+    border-bottom: none;
+  }
+
+  .table-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .table-title svg {
+    margin-right: 12px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .table-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .table-controls input,
+  .table-controls select {
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .table-controls input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .table-controls input:focus,
+  .table-controls select:focus {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    outline: none;
+  }
+
+  .refresh-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 12px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .refresh-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(180deg);
+  }
+
+  .refresh-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Enhanced Table */
+  .table {
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .table thead th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 20px 15px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .table tbody td {
+    padding: 18px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    vertical-align: middle;
+  }
+
+  .table tbody tr {
+    transition: all 0.3s ease;
+  }
+
+  .table tbody tr:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    transform: scale(1.01);
+  }
+
+  .table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Enhanced Pagination */
+  .pagination {
+    justify-content: center;
+    margin: 30px 0;
+  }
+
+  .pagination .page-link {
+    border: none;
+    border-radius: 12px;
+    margin: 0 3px;
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #667eea;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .pagination .page-link:hover {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  }
+
+  /* Enhanced Offcanvas */
+  .offcanvas {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .offcanvas-header {
+    background: linear-gradient(135deg, #ffc107, #fd7e14);
+    color: white;
+    padding: 25px 30px;
+    border-bottom: none;
+  }
+
+  .offcanvas-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+
+  .export-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    padding: 10px 20px;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .export-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .dashboard-container {
+      padding: 15px;
+    }
     
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    
+    .stat-card {
+      padding: 20px;
+    }
+    
+    .table-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .table-controls input,
+    .table-controls select {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
 
-    <div class="col-md-3">
-        <div class="card text-bg-danger mb-3 kelmaag" style="cursor: pointer;">
-        <div class="card-body">
-            <h5 class="card-title">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-slash-circle mx-2" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                <path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708"/>
-                </svg>
-                Kelmaganlar</h5>
-            <p class="card-text fs-4 mx-2 kelmagan">0</p>
+  /* Animation for cards */
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .stat-card {
+    animation: slideInUp 0.6s ease-out;
+  }
+
+  .stat-card:nth-child(1) { animation-delay: 0.1s; }
+  .stat-card:nth-child(2) { animation-delay: 0.2s; }
+  .stat-card:nth-child(3) { animation-delay: 0.3s; }
+  .stat-card:nth-child(4) { animation-delay: 0.4s; }
+</style>
+
+<div class="dashboard-container">
+  <div class="stats-grid">
+    <div class="stat-card primary" onclick="loadPage('./user.html')">
+      <div class="stat-header">
+        <div class="stat-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+          </svg>
         </div>
-        </div>
-    </div>
+      </div>
+      <h5 class="stat-title">Xodimlar</h5>
+      <p class="stat-value jami">0</p>
+      <p class="stat-description">Jami ro'yxatdan o'tgan xodimlar</p>
     </div>
 
-    <!-- Table -->
-    <div class="card shadow-sm mt-4">
-    <div class="card-header d-flex">
-        <div>
-            <input type="text" name="" id="search2" style="width: 125px;" class="p-1 border-dark rounded mb-2" placeholder="Izlash">
+    <div class="stat-card success clr">
+      <div class="stat-header">
+        <div class="stat-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5"/>
+            <path d="M1.713 11.865v-.474H2c.217 0 .363-.137.363-.317 0-.185-.158-.31-.361-.31-.223 0-.367.152-.373.31h-.59c.016-.467.373-.787.986-.787.588-.002.954.291.957.703a.595.595 0 0 1-.492.594v.033a.615.615 0 0 1 .569.631c.003.533-.502.8-1.051.8-.656 0-1-.37-1.008-.794h.582c.008.178.186.306.422.309.254 0 .424-.145.422-.35-.002-.195-.155-.348-.414-.348h-.3zm-.004-4.699h-.604v-.035c0-.408.295-.844.958-.844.583 0 .96.326.96.756 0 .389-.257.617-.476.848l-.537.572v.03h1.054V9H1.143v-.395l.957-.99c.138-.142.293-.304.293-.508 0-.18-.147-.32-.342-.32a.33.33 0 0 0-.342.338zM2.564 5h-.635V2.924h-.031l-.598.42v-.567l.629-.443h.635z"/>
+          </svg>
         </div>
-        <div>
-            <input type="date" name="" id="date" class="w-10 p-1 border-dark rounded mb-2 mx-1">
+      </div>
+      <h5 class="stat-title">Kelganlar</h5>
+      <p class="stat-value kelgan">0</p>
+      <p class="stat-description">Bugun ishga kelgan xodimlar</p>
+    </div>
+
+    <div class="stat-card warning kechqolgan" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+      <div class="stat-header">
+        <div class="stat-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.879 10.414a2.501 2.501 0 0 0-3.465 3.465zm.707.707-3.465 3.465a2.501 2.501 0 0 0 3.465-3.465m-4.56-1.096a3.5 3.5 0 1 1 4.949 4.95 3.5 3.5 0 0 1-4.95-4.95ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+          </svg>
         </div>
-        <div>
-            <input type="date" name="" id="date2" class="w-10 p-1 border-dark rounded mb-2">
+      </div>
+      <h5 class="stat-title">Kechikish</h5>
+      <p class="stat-value kechikish">0</p>
+      <p class="stat-description">Kechikib kelgan xodimlar</p>
+    </div>
+
+    <div class="stat-card danger kelmaag">
+      <div class="stat-header">
+        <div class="stat-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708"/>
+          </svg>
         </div>
-        <div>
-            <select id="smenh" style="width: 125px;" class="p-1 border-dark rounded mb-2 mx-1">
-                <option value="">--Tanlang--</option>
-                <option value="Kun">Kun</option>
-                <option value="Tun">Tun</option>
-                <option value="To'liq">To'liq</option>
-            </select>
-        </div>
-        <div class="mt-1 clr" style="cursor: pointer;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-clockwise mx-2" viewBox="0 0 16 16">
+      </div>
+      <h5 class="stat-title">Kelmaganlar</h5>
+      <p class="stat-value kelmagan">0</p>
+      <p class="stat-description">Bugun ishga kelmagan xodimlar</p>
+    </div>
+  </div>
+
+  <!-- Enhanced Table Container -->
+  <div class="table-container">
+    <div class="table-header">
+      <h5 class="table-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5 3v-3h4v3H6zm5 0v-3h4v3h-4z"/>
+        </svg>
+        Xodimlar Jadvali
+      </h5>
+      <div class="table-controls">
+        <input type="text" id="search2" placeholder="Izlash..." style="width: 150px;">
+        <input type="date" id="date" style="width: 150px;">
+        <input type="date" id="date2" style="width: 150px;">
+        <div class="refresh-btn clr">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
             <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
-            </svg>
+          </svg>
         </div>
         <div class="exbut"></div>
+      </div>
     </div>
-    <div class="card-body">
-        <span class="count mx-2"></span>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Rasm</th>
-                    <th>Ism</th>
-                    <th>Familya</th>
-                    <th>Sharif</th>
-                    <th>Smen</th>
-                    <th>Sana</th>
-                    <th>Kirish</th>
-                    <th>Chiqish</th>
-                </tr>
-            </thead>
-            <tbody class="tdash"></tbody>
+    <div style="padding: 30px;">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="count badge bg-primary fs-6"></span>
+      </div>
+      <div style="overflow-x: auto;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Rasm</th>
+              <th>Ism</th>
+              <th>Familya</th>
+              <th>Sharif</th>
+              <th>Sana</th>
+              <th>Kirish</th>
+              <th>Chiqish</th>
+              <th>Jami</th>
+            </tr>
+          </thead>
+          <tbody class="tdash"></tbody>
         </table>
-        <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item Previous2" style="cursor: pointer;"><a class="page-link">Orqaga</a></li>
-                <li class="page-item">
-                <a class="page-link pag2">1</a>
-                </li>
-                <li class="page-item Next2" style="cursor: pointer;"><a class="page-link">Keyingi</a></li>
-            </ul>
-        </nav>
+      </div>
+      <nav aria-label="Pagination">
+        <ul class="pagination">
+          <li class="page-item Previous2" style="cursor: pointer;"><a class="page-link">Orqaga</a></li>
+          <li class="page-item">
+            <a class="page-link pag2">1</a>
+          </li>
+          <li class="page-item Next2" style="cursor: pointer;"><a class="page-link">Keyingi</a></li>
+        </ul>
+      </nav>
     </div>
-    </div>
+  </div>
 
-    <div class="offcanvas offcanvas-end" style="width: 90%;" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-        <div class="offcanvas-header">
-            <button class="btn btn-warning p-1 px-4 exportKechqolgan countof"></button>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Rasm</th>
-                            <th>Ism</th>
-                            <th>Familya</th>
-                            <th>Sharif</th>
-                            <th>Smen</th>
-                            <th>Sana</th>
-                            <th>Kirish</th>
-                            <th>Chiqish</th>
-                            <th>O'chirish</th>
-                        </tr>
-                    </thead>
-                    <tbody class="tdashof"></tbody>
-                </table>
-                <nav aria-label="...">
-                    <ul class="pagination">
-                        <li class="page-item Previousof" style="cursor: pointer;"><a class="page-link">Orqaga</a></li>
-                        <li class="page-item">
-                        <a class="page-link pagof">1</a>
-                        </li>
-                        <li class="page-item Nextof" style="cursor: pointer;"><a class="page-link">Keyingi</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+  <!-- Enhanced Offcanvas -->
+  <div class="offcanvas offcanvas-end" style="width: 90%;" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Kechikib Kelgan Xodimlar</h5>
+      <button class="export-btn exportKechqolgan countof">Export</button>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+    <div class="offcanvas-body" style="padding: 30px;">
+      <div style="overflow-x: auto;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Rasm</th>
+              <th>Ism</th>
+              <th>Familya</th>
+              <th>Sharif</th>
+              <th>Sana</th>
+              <th>Kirish</th>
+              <th>Chiqish</th>
+              <th>O'chirish</th>
+            </tr>
+          </thead>
+          <tbody class="tdashof"></tbody>
+        </table>
+      </div>
+      <nav aria-label="Pagination">
+        <ul class="pagination">
+          <li class="page-item Previousof" style="cursor: pointer;"><a class="page-link">Orqaga</a></li>
+          <li class="page-item">
+            <a class="page-link pagof">1</a>
+          </li>
+          <li class="page-item Nextof" style="cursor: pointer;"><a class="page-link">Keyingi</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
 </div>
