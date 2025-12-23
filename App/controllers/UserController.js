@@ -10,7 +10,7 @@ class UserController
 {
   async Event (req, res) {
     const rawEvent = req.body.AccessControllerEvent || req.body.event_log;
-    const event = JSON.parse(rawEvent);    
+    const event = JSON.parse(rawEvent);
     if (event.AccessControllerEvent?.employeeNoString) {
       const employeeNo = event.AccessControllerEvent?.employeeNoString || null;            
       if (employeeNo) {
@@ -19,17 +19,44 @@ class UserController
               const device = await Device.findOne({
                 where: {ip: event.ipAddress}
               })
-              if (device && device.method === 'Barchasi') {
-                new HelpControl().createOrupdate(employeeNo)
+              if (device && device.method === 'Barchasi') {                
+                const { today, time } = new HelpControl().dateTime()
+                const results2 = await Analiz.findOne({
+                    order: [['id', 'DESC']],
+                    where: { mijozId: Number(employeeNo), sana: String(today)}
+                });                
+                if (results2) {
+                  if (!results2.kirish) {
+                    new HelpControl().create(employeeNo)
+                    return res.status(200).send('OK');
+                  }
+                  if (!results2.chiqish) {
+                    new HelpControl().update(employeeNo)
+                    return res.status(200).send('OK');
+                  }
+                  if (results2.kirish && results2.chiqish) {
+                    new HelpControl().create(employeeNo)
+                    return res.status(200).send('OK');
+                  }
+                  return res.status(200).send('OK');
+                } else {
+                  new HelpControl().create(employeeNo)
+                  return res.status(200).send('OK');
+                }
               }
               if (device && device.method === 'Kirish') {
                 new HelpControl().create(employeeNo)
+                return res.status(200).send('OK');
               }
               if (device && device.method === 'Chiqish') {
                 new HelpControl().update(employeeNo)
+                return res.status(200).send('OK');
               }
             }
+            return res.status(200).send('OK');
         } catch (error) {
+          console.log(error);
+          
           return res.status(200).send('OK');
         }
       }

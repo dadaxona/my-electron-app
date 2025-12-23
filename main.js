@@ -22,10 +22,15 @@ api.use(express.urlencoded({ extended: true }));
 api.post("/event", upload.any(), UserController.Event);
 api.use(route);
 
-const PORT = 8989;
-api.listen(PORT, () => {
-  console.log(`✅ Express server running on http://localhost:${PORT}`);
-});
+// const PORT = 8989;
+// const HOST = 8989;
+// api.listen(PORT, () => {
+//   console.log(`✅ Express server running on http://localhost:${PORT}`);
+// });
+const POST = 8989;
+const HOST = "0.0.0.0";
+api.listen(POST, HOST);
+
 
 let win;
 
@@ -41,7 +46,7 @@ function createWindow() {
       nodeIntegration: false,
     },
   });
-  Menu.setApplicationMenu(null);
+  // Menu.setApplicationMenu(null);
   win.loadFile(path.join(__dirname, "App", "Pages", "home.html"));
 }
 
